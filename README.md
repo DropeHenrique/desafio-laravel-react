@@ -71,50 +71,11 @@ Uma aplicação moderna que exibe as 5 músicas mais tocadas da dupla Tião Carr
 
 ### 1. Clone o repositório
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/DropeHenrique/desafio-laravel-react.git
 cd desafio-laravel-react
 ```
 
-### 2. Configuração do Ambiente
-
-#### Backend (Laravel)
-```bash
-# Copiar arquivo de configuração
-cp backend/.env.example backend/.env
-
-# Editar o arquivo .env com as seguintes configurações:
-```
-
-**Configurações importantes no `backend/.env`:**
-```env
-APP_NAME="Top 5 Tião Carreiro"
-APP_ENV=local
-APP_KEY=base64:SUA_CHAVE_AQUI
-APP_DEBUG=true
-APP_URL=http://localhost:8001
-APP_LOCALE=pt_BR
-
-# Banco de dados MySQL
-DB_CONNECTION=mysql
-DB_HOST=mysql
-DB_PORT=3306
-DB_DATABASE=top5_tiao_carreiro
-DB_USERNAME=laravel_user
-DB_PASSWORD=laravel_password
-
-# Redis
-REDIS_HOST=redis
-REDIS_PASSWORD=null
-REDIS_PORT=6379
-```
-
-#### Frontend (React)
-```bash
-# Criar arquivo de configuração
-echo "REACT_APP_API_URL=http://localhost:8001/api" > frontend/.env
-```
-
-### 3. Inicie o ambiente Docker
+### 2. Inicie o ambiente Docker
 ```bash
 # Execute o script de inicialização (RECOMENDADO)
 ./docker/start.sh
@@ -124,7 +85,7 @@ cd docker
 docker-compose up --build -d
 ```
 
-### 4. Acesse a aplicação
+### 3. Acesse a aplicação
 - **Frontend React**: http://localhost:3001
 - **Backend Laravel API**: http://localhost:8001
 - **MySQL**: localhost:3307
@@ -334,13 +295,6 @@ Após executar o script de inicialização, você pode:
 4. **Administração** - Aprovar/reprovar músicas
 5. **CRUD completo** - Editar/excluir músicas
 
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
 
 ## 📝 Licença
 
@@ -348,13 +302,12 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 ## 👥 Autores
 
-- **Desenvolvedor** - Implementação completa do desafio técnico
+- **Pedro Crispim** - Implementação completa do desafio técnico
 
-## 📞 Suporte
+## 📞 Dúvidas
 
 Para suporte, entre em contato através de:
-- Email: [seu-email@exemplo.com]
-- Issues do GitHub: [link-para-issues]
+- Email: pedrohenriquecrispim@hotmail.com
 
 ---
 
