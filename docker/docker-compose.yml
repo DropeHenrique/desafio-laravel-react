@@ -1,0 +1,86 @@
+version: '3.8'
+
+services:
+  # Banco de dados MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: top5_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: top5_tiao_carreiro
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: laravel_password
+    ports:
+      - "3307:3306"  # Porta customizada para evitar conflitos
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+  # Backend Laravel
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    container_name: top5_php
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ../backend:/var/www
+      - ./php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    depends_on:
+      - mysql
+    networks:
+      - app_network
+
+  # Frontend React
+  node:
+    build:
+      context: ./node
+      dockerfile: Dockerfile
+    container_name: top5_node
+    restart: unless-stopped
+    volumes:
+      - ../frontend:/app
+      - /app/node_modules
+    environment:
+      - REACT_APP_API_URL=http://localhost:8001/api
+    networks:
+      - app_network
+
+  # Servidor web Nginx
+  nginx:
+    image: nginx:alpine
+    container_name: top5_nginx
+    restart: unless-stopped
+    ports:
+      - "8001:80"  # Porta customizada para Laravel API
+      - "3001:3000"  # Porta customizada para React
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../backend:/var/www
+      - ../frontend/build:/app/build
+    depends_on:
+      - php
+      - node
+    networks:
+      - app_network
+
+  # Redis para cache (opcional)
+  redis:
+    image: redis:alpine
+    container_name: top5_redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"  # Porta customizada
+    networks:
+      - app_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  app_network:
+    driver: bridge
